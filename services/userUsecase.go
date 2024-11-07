@@ -6,7 +6,8 @@ import (
 )
 
 type UserUseCase interface {
-	Regis(user *entities.User) error
+	RegisterUser(user *entities.User) error
+	Login(username, password string) (*entities.User, error)
 }
 
 type userUseCase struct {
@@ -17,6 +18,17 @@ func NewUserUseCase(repo repositories.UserRepo) UserUseCase {
 	return &userUseCase{repo}
 }
 
-func (uc userUseCase) Regis(user *entities.User) error {
-	return uc.repo.Register(user)
+func (uc userUseCase) RegisterUser(user *entities.User) error {
+	return uc.repo.CreateUser(user)
+}
+
+func (uc userUseCase) Login(username, password string) (*entities.User, error) {
+	user, err := uc.repo.GetByUsername(username)
+	if err != nil {
+		return nil, err
+	}
+	if user.Password != password {
+		return nil, err
+	}
+	return user, nil
 }

@@ -15,5 +15,6 @@ func main() {
 	UserController := controllers.NewController(UserUseCase)
 	r := gin.Default()
 	r.POST("/register", UserController.RegisterUser)
+	r.POST("/login", UserController.LoginUser)
 	r.Run(":8000")
 }
