@@ -10,11 +10,19 @@ import (
 
 func main() {
 	db := config.CreateDatabase()
+	//
 	UserRepo := repositories.NewUserRepo(db)
+	inputRepo := repositories.NewAktivitasRepo(db)
+	//
 	UserUseCase := services.NewUserUseCase(UserRepo)
+	AktivitasUseCase := services.NewInputUsecase(inputRepo)
+	//
 	UserController := controllers.NewController(UserUseCase)
+	AktivitasController := controllers.NewInputController(AktivitasUseCase)
+	//
 	r := gin.Default()
 	r.POST("/register", UserController.RegisterUser)
 	r.POST("/login", UserController.LoginUser)
+	r.GET("/inputAktivitas", AktivitasController.GetInputAktivitasAll)
 	r.Run(":8000")
 }

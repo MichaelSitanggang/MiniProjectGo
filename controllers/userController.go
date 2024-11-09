@@ -31,6 +31,7 @@ func (uc *UserController) RegisterUser(c *gin.Context) {
 }
 
 func (uc *UserController) LoginUser(c *gin.Context) {
+	// var user entities.User
 	var credential struct {
 		Username string `json:"username"`
 		Password string `json:"password"`
