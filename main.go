@@ -26,3 +26,6 @@ func main() {
 	r.GET("/inputAktivitas", AktivitasController.GetInputAktivitasAll)
 	r.Run(":8000")
 }
+
+// Cek User All sudah pas atau belom
+// dan minggu selanjut nya buat code unutk input aktivitas dlu
