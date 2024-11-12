@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/MichaelSitanggang/MiniProjectGo/config"
 	"github.com/MichaelSitanggang/MiniProjectGo/controllers"
+	middleware "github.com/MichaelSitanggang/MiniProjectGo/middlewares"
 	"github.com/MichaelSitanggang/MiniProjectGo/repositories"
 	"github.com/MichaelSitanggang/MiniProjectGo/services"
 	"github.com/gin-gonic/gin"
@@ -23,7 +24,13 @@ func main() {
 	r := gin.Default()
 	r.POST("/register", UserController.RegisterUser)
 	r.POST("/login", UserController.LoginUser)
-	r.GET("/inputAktivitas", AktivitasController.GetInputAktivitasAll)
+
+	route := r.Group("/inputAktivitas")
+	route.Use(middleware.AuthMiddleware())
+	{
+		route.GET("", AktivitasController.GetInputAktivitasAll)
+		route.POST("", AktivitasController.CreatedAktivitas)
+	}
 	r.Run(":8000")
 }
 

@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -9,11 +10,15 @@ import (
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.GetHeader("Authorization")
-		if token == "" {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing token"})
+
+		// Cek apakah token ada dan menggunakan skema Bearer
+		if token == "" || !strings.HasPrefix(token, "Bearer ") {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing or invalid token"})
 			c.Abort()
 			return
 		}
+		// Hapus prefix "Bearer " dari token
+		token = strings.TrimPrefix(token, "Bearer ")
 
 		userID, err := ValidateToken(token)
 		if err != nil {
@@ -21,7 +26,6 @@ func AuthMiddleware() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-
 		c.Set("user_id", userID)
 		c.Next()
 	}
