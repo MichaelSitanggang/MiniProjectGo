@@ -9,7 +9,7 @@ import (
 
 var jwtKey = []byte("123abc")
 
-func GenerateToken(userID uint) (string, error) {
+func GenerateToken(userID int) (string, error) {
 	claims := &jwt.RegisteredClaims{
 		ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),
 		Subject:   strconv.Itoa(int(userID)),
@@ -19,7 +19,7 @@ func GenerateToken(userID uint) (string, error) {
 	return token.SignedString(jwtKey)
 }
 
-func ValidateToken(tokenString string) (uint, error) {
+func ValidateToken(tokenString string) (int, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return jwtKey, nil
 	})
@@ -37,5 +37,5 @@ func ValidateToken(tokenString string) (uint, error) {
 		return 0, err
 	}
 
-	return uint(userID), nil
+	return int(userID), nil
 }

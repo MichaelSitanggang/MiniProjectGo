@@ -11,6 +11,6 @@ func CreateDatabase() *gorm.DB {
 	if err != nil {
 		panic(err)
 	}
-	db.AutoMigrate(&entities.User{}, &entities.Aktivitas{}, &entities.Input_aktivitas{})
+	db.AutoMigrate(&entities.User{}, &entities.Aktivitas{}, &entities.Input_aktivitas{}, &entities.History{})
 	return db
 }
