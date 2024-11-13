@@ -52,6 +52,8 @@ func (iuc inputUseCase) CreateAktip(userID int, aktivitas *entities.Input_aktivi
 	return nil
 }
 
+//teersolve
+
 func (iuc inputUseCase) UpdateAktip(id int, userID int, aktivitas *entities.Input_aktivitas) error {
 	// Temukan aktivitas yang ingin diupdate berdasarkan ID dan userID
 	active, err := iuc.repo.FindbyId(id, userID)
