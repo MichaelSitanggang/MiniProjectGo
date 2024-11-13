@@ -8,7 +8,8 @@ import (
 type InputUseCase interface {
 	Findall(userID int) ([]entities.Input_aktivitas, error)
 	CreateAktip(userID int, akttivitas *entities.Input_aktivitas) error
-	Update(userID int, aktivitasID int, aktivitas *entities.Input_aktivitas) error
+	UpdateAktip(id int, userID int, aktivitas *entities.Input_aktivitas) error
+	DeleteAktip(id int, userID int) error
 }
 
 type inputUseCase struct {
@@ -29,14 +30,18 @@ func (iuc inputUseCase) CreateAktip(userID int, aktivitas *entities.Input_aktivi
 	return iuc.repo.CreateAktivitas(aktivitas)
 }
 
-func (iuc inputUseCase) Update(aktivitasID int, userID int, aktivitas *entities.Input_aktivitas) error {
-	activ, err := iuc.repo.FindByID(aktivitasID, userID)
+func (iuc inputUseCase) UpdateAktip(id int, userID int, aktivitas *entities.Input_aktivitas) error {
+	active, err := iuc.repo.FindbyId(id, userID)
 	if err != nil {
 		return err
 	}
-	activ.Data_Aktivitas = aktivitas.Data_Aktivitas
-	activ.Konsumsi_energi_kwh = aktivitas.Konsumsi_energi_kwh
-	activ.Total_jejak_karbon = aktivitas.Data_Aktivitas * float64(aktivitas.Konsumsi_energi_kwh)
+	active.Data_Aktivitas = aktivitas.Data_Aktivitas
+	active.Konsumsi_energi_kwh = aktivitas.Konsumsi_energi_kwh
+	active.Total_jejak_karbon = aktivitas.Data_Aktivitas * float64(aktivitas.Konsumsi_energi_kwh)
 
-	return iuc.repo.UpdateAktivitas(activ)
+	return iuc.repo.UpdateAktivitas(active)
+}
+
+func (iuc inputUseCase) DeleteAktip(id int, userID int) error {
+	return iuc.repo.DeleteAktivitas(id, userID)
 }

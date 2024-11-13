@@ -25,11 +25,13 @@ func main() {
 	r.POST("/register", UserController.RegisterUser)
 	r.POST("/login", UserController.LoginUser)
 
-	route := r.Group("/inputAktivitas")
+	route := r.Group("/activity")
 	route.Use(middleware.AuthMiddleware())
 	{
 		route.GET("", AktivitasController.GetInputAktivitasAll)
-		route.POST("inputAktivitas", AktivitasController.CreatedAktivitas)
+		route.POST("", AktivitasController.CreatedAktivitas)
+		route.PUT("/:id", AktivitasController.UpdatedAktivitas)
+		route.DELETE("/:id", AktivitasController.DeletedAktivitas)
 	}
 	r.Run(":8080")
 }
