@@ -29,9 +29,9 @@ func main() {
 	route.Use(middleware.AuthMiddleware())
 	{
 		route.GET("", AktivitasController.GetInputAktivitasAll)
-		route.POST("", AktivitasController.CreatedAktivitas)
+		route.POST("inputAktivitas", AktivitasController.CreatedAktivitas)
 	}
-	r.Run(":8000")
+	r.Run(":8080")
 }
 
 // Cek User All sudah pas atau belom

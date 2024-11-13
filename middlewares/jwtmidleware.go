@@ -17,7 +17,6 @@ func AuthMiddleware() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		// Hapus prefix "Bearer " dari token
 		token = strings.TrimPrefix(token, "Bearer ")
 
 		userID, err := ValidateToken(token)

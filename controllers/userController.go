@@ -53,6 +53,6 @@ func (uc *UserController) LoginUser(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "gagal menggunakan token"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"token": token})
+	c.JSON(http.StatusOK, gin.H{"status": "True", "Message": "Berhasil", "token": token})
 
 }

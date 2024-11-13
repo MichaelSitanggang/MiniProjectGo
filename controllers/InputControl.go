@@ -42,7 +42,7 @@ func (ic *InputControl) CreatedAktivitas(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "User ID not found in context"})
 		return
 	}
-	userID, ok := user_id.(uint)
+	userID, ok := user_id.(uint) // convert to uint
 	if !ok {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid user ID"})
 		return
