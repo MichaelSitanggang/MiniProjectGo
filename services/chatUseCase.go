@@ -20,7 +20,7 @@ type chatUseCase struct {
 	repo repositories.ChatRepo
 }
 
-func NewChatRepo(repo repositories.ChatRepo) ChatUseCase {
+func NewChatUseCase(repo repositories.ChatRepo) ChatUseCase {
 	return &chatUseCase{repo: repo}
 }
 
