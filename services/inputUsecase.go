@@ -15,6 +15,26 @@ type InputUseCase interface {
 	FindAllHistory(userID int) ([]entities.History, error)
 }
 
+// GetAll(page, limit int) ([]entities.Category, *entities.Pagination, error)
+
+// func (s *categoryService) GetAll(page, limit int) ([]entities.Category, *entities.Pagination, error) {
+//     var categories []entities.Category
+//     totalItems, err := s.categoryRepo.Count()
+//     if err != nil {
+//         return nil, nil, err
+//     }
+//     if err := s.categoryRepo.FindAll(&categories, page, limit); err != nil {
+//         return nil, nil, err
+//     }
+//     totalPages := int((totalItems + int64(limit) - 1) / int64(limit))
+//     pagination := &entities.Pagination{
+//         CurrentPage: page,
+//         TotalPages:  totalPages,
+//         TotalItems:  totalItems,
+//     }
+//     return categories, pagination, nil
+// }
+
 type inputUseCase struct {
 	repo repositories.AktivitasRepo
 }
@@ -28,11 +48,9 @@ func (iuc inputUseCase) Findall(userID int) ([]entities.Input_aktivitas, error) 
 }
 
 func (iuc inputUseCase) CreateAktip(userID int, aktivitas *entities.Input_aktivitas) error {
-	// Hitung Total Jejak Karbon
 	aktivitas.Total_jejak_karbon = aktivitas.Data_Aktivitas * float64(aktivitas.Konsumsi_energi_kwh)
 	aktivitas.User_id = userID
 
-	// Simpan Aktivitas
 	if err := iuc.repo.CreateAktivitas(aktivitas); err != nil {
 		return err
 	}
@@ -60,23 +78,19 @@ func (iuc inputUseCase) UpdateAktip(id int, userID int, aktivitas *entities.Inpu
 	if err != nil {
 		return err
 	}
-	// Update aktivitas yang ada dengan data baru
 	active.Data_Aktivitas = aktivitas.Data_Aktivitas
 	active.Konsumsi_energi_kwh = aktivitas.Konsumsi_energi_kwh
 	active.Total_jejak_karbon = aktivitas.Data_Aktivitas * float64(aktivitas.Konsumsi_energi_kwh)
 
-	// Lakukan update aktivitas di database
 	if err := iuc.repo.UpdateAktivitas(active); err != nil {
 		return err
 	}
-
-	// Buat history baru setelah aktivitas di-update
 	history := entities.History{
 		User_id:     userID,
 		AktivitasID: active.Id,
 		TotalKarbon: active.Total_jejak_karbon,
 		CreatedAt:   time.Now().Format(time.RFC3339),
-		UpdatedAt:   time.Now().Format(time.RFC3339), // Jika diperlukan
+		UpdatedAt:   time.Now().Format(time.RFC3339),
 	}
 
 	return iuc.repo.CreateHistory(&history)

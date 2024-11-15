@@ -18,6 +18,26 @@ func NewInputController(uc services.InputUseCase) *InputControl {
 	return &InputControl{uc}
 }
 
+// pageStr := c.Param("page")
+//     limitStr := c.Query("limit")
+//     page, err := strconv.Atoi(pageStr)
+//     if err != nil || page < 1 {
+//         page = 1
+//     }
+//     limit, err := strconv.Atoi(limitStr)
+//     if err != nil || limit < 1 {
+//         limit = 10
+//     }
+//     categories, pagination, err := cc.categoryService.GetAll(page, limit)
+//     if err != nil {
+//         c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+//         return
+//     }
+//     c.JSON(http.StatusOK, gin.H{
+//         "pagination": pagination,
+//         "data":       categories,
+//     }
+
 func (ic *InputControl) GetInputAktivitasAll(c *gin.Context) {
 	user_id, exists := c.Get("user_id")
 	if !exists {
