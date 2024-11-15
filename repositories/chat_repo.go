@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"github.com/MichaelSitanggang/MiniProjectGo/entities"
+
 	"gorm.io/gorm"
 )
 
@@ -19,11 +20,11 @@ func NewChatRepo(db *gorm.DB) ChatRepo {
 }
 
 func (r *chatRepo) SaveChat(chat entities.Chat) error {
-	return r.db.Create(&chat).Error
+	return r.db.Debug().Create(&chat).Error
 }
 
-func (r *chatRepo) GetAllChat() ([]entities.Chat, error) {
+func (cr chatRepo) GetAllChat() ([]entities.Chat, error) {
 	var chats []entities.Chat
-	err := r.db.Find(chats).Error
+	err := cr.db.Find(&chats).Error
 	return chats, err
 }

@@ -7,24 +7,25 @@ import (
 
 	"github.com/MichaelSitanggang/MiniProjectGo/entities"
 	"github.com/MichaelSitanggang/MiniProjectGo/repositories"
+
 	"github.com/google/generative-ai-go/genai"
 	"google.golang.org/api/option"
 )
 
 type ChatUseCase interface {
-	CreateChat(userInput string) (entities.Chat, error)
-	GetChat() ([]entities.Chat, error)
+	ProsesChat(userInput string) (entities.Chat, error)
+	GetAllChats() ([]entities.Chat, error)
 }
 
 type chatUseCase struct {
-	repo repositories.ChatRepo
+	repoC repositories.ChatRepo
 }
 
-func NewChatUseCase(repo repositories.ChatRepo) ChatUseCase {
-	return &chatUseCase{repo: repo}
+func NewUseCaseChat(repoC repositories.ChatRepo) ChatUseCase {
+	return &chatUseCase{repoC: repoC}
 }
 
-func (uc *chatUseCase) CreateChat(userInput string) (entities.Chat, error) {
+func (cuc *chatUseCase) ProsesChat(userInput string) (entities.Chat, error) {
 	ctx := context.Background()
 	client, err := genai.NewClient(ctx, option.WithAPIKey(os.Getenv("GEMINI_API_KEY")))
 	if err != nil {
@@ -37,28 +38,30 @@ func (uc *chatUseCase) CreateChat(userInput string) (entities.Chat, error) {
 	if err != nil {
 		return entities.Chat{}, err
 	}
-
 	if len(resp.Candidates) == 0 {
 		return entities.Chat{}, err
 	}
-	aiRespon := ""
+	aiResponse := ""
 	for _, candidate := range resp.Candidates {
 		if candidate.Content == nil {
 			continue
 		}
-		for _, data := range candidate.Content.Parts {
-			aiRespon += fmt.Sprintf("%s", data)
+		for _, part := range candidate.Content.Parts {
+			aiResponse += fmt.Sprintf("%v", part)
 		}
 	}
 	chat := entities.Chat{
 		UserInput: userInput,
-		AiRespon:  aiRespon,
+		AiRespon:  aiResponse,
+	}
+	if err := cuc.repoC.SaveChat(chat); err != nil {
+		return entities.Chat{}, err
 	}
 
 	return chat, nil
 
 }
 
-func (uc *chatUseCase) GetChat() ([]entities.Chat, error) {
-	return uc.repo.GetAllChat()
+func (cuc *chatUseCase) GetAllChats() ([]entities.Chat, error) {
+	return cuc.repoC.GetAllChat()
 }

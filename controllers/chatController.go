@@ -4,37 +4,42 @@ import (
 	"net/http"
 
 	"github.com/MichaelSitanggang/MiniProjectGo/services"
+
 	"github.com/gin-gonic/gin"
 )
 
-type ChatController struct {
-	usecase services.ChatUseCase
+type ChatCotnroller struct {
+	chatUseCase services.ChatUseCase
 }
 
-func NewChatController(usecase services.ChatUseCase) *ChatController {
-	return &ChatController{usecase: usecase}
+func NewControllerChat(chatUseCase services.ChatUseCase) *ChatCotnroller {
+	return &ChatCotnroller{chatUseCase: chatUseCase}
 }
 
-func (u *ChatController) CreatedChat(c *gin.Context) {
-	var inputChat struct {
+func (cc *ChatCotnroller) ChatController(c *gin.Context) {
+	var input struct {
 		UserInput string `json:"user_input"`
 	}
-	if err := c.ShouldBindJSON(&inputChat); err != nil {
+	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"Status": "Gagal", "Kondisi": false, "Message": "Input Data Invalid"})
 		return
 	}
-	chats, err := u.usecase.CreateChat(inputChat.UserInput)
+	chat, err := cc.chatUseCase.ProsesChat(input.UserInput)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"Status": "Gagal", "Kondisi": false, "Message": "Eror pada server"})
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"Status":  "Gagal",
+			"Kondisi": false,
+			"Message": "Server eror",
+		})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"Status": "Berhasil", "Kondisi": true, "Message": chats})
+	c.JSON(http.StatusOK, gin.H{"Status": "Berhasil", "Kondisi": true, "Message": chat})
 }
 
-func (u *ChatController) GetChatAlls(c *gin.Context) {
-	chats, err := u.usecase.GetChat()
+func (cc *ChatCotnroller) GetAllChats(c *gin.Context) {
+	chats, err := cc.chatUseCase.GetAllChats()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"Status": "Gagal", "Kondisi": false, "Message": "Eror pada server"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"Status": "Berhasil", "Kondisi": true, "Message": chats})

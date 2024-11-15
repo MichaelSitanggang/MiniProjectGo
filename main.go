@@ -15,12 +15,12 @@ func main() {
 	UserRepo := repositories.NewUserRepo(db)
 	inputRepo := repositories.NewAktivitasRepo(db)
 	//
-	ChatUseCase := services.NewChatUseCase(ChatRepo)
+	ChatUseCase := services.NewUseCaseChat(ChatRepo)
 	UserUseCase := services.NewUserUseCase(UserRepo)
 	InputAktivitasUseCase := services.NewInputUsecase(inputRepo)
 	AktipitasUseCase := services.NewUseCaseAktivitas(repositories.NewRepoAktivitas(db))
 	//
-	ChatController := controllers.NewChatController(ChatUseCase)
+	ChatController := controllers.NewControllerChat(ChatUseCase)
 	UserController := controllers.NewController(UserUseCase)
 	InputAktivitasController := controllers.NewInputController(InputAktivitasUseCase)
 	ControlAktivitas := controllers.NewControlAktipitas(AktipitasUseCase)

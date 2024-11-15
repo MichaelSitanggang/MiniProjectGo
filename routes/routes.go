@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRouter(userController *controllers.UserController, inputAktivitasController *controllers.InputControl, aktivitasController *controllers.ControllerAktip, chatController *controllers.ChatController) *gin.Engine {
+func SetupRouter(userController *controllers.UserController, inputAktivitasController *controllers.InputControl, aktivitasController *controllers.ControllerAktip, chatController *controllers.ChatCotnroller) *gin.Engine {
 	r := gin.Default()
 
 	r.POST("/register", userController.RegisterUser)
@@ -36,8 +36,8 @@ func SetupRouter(userController *controllers.UserController, inputAktivitasContr
 	chatRoutes := r.Group("/chataja")
 	chatRoutes.Use(middleware.AuthMiddleware())
 	{
-		chatRoutes.GET("", chatController.GetChatAlls)
-		chatRoutes.POST("", chatController.CreatedChat)
+		chatRoutes.GET("", chatController.GetAllChats)
+		chatRoutes.POST("", chatController.ChatController)
 	}
 	return r
 }
