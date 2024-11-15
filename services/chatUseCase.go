@@ -21,6 +21,7 @@ type chatUseCase struct {
 	repoC repositories.ChatRepo
 }
 
+// ini adalah fitur ai
 func NewUseCaseChat(repoC repositories.ChatRepo) ChatUseCase {
 	return &chatUseCase{repoC: repoC}
 }

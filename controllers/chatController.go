@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// ini fitur ai
 type ChatCotnroller struct {
 	chatUseCase services.ChatUseCase
 }
