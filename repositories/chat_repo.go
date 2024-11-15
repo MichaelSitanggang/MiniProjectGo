@@ -6,8 +6,6 @@ import (
 	"gorm.io/gorm"
 )
 
-//ini fitur ai
-
 type ChatRepo interface {
 	SaveChat(chat entities.Chat) error
 	GetAllChat() ([]entities.Chat, error)

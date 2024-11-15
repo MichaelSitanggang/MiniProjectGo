@@ -32,5 +32,3 @@ func (uc userUseCase) Login(username, password string) (*entities.User, error) {
 	}
 	return user, nil
 }
-
-//lakukan perubahan
