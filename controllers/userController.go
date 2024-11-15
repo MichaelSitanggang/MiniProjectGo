@@ -20,14 +20,14 @@ func NewController(usecase services.UserUseCase) *UserController {
 func (uc *UserController) RegisterUser(c *gin.Context) {
 	var user entities.User
 	if err := c.ShouldBindBodyWithJSON(&user); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message": "Data tidak valid"})
+		c.JSON(http.StatusBadRequest, gin.H{"Status": "Gagal", "Kondisi": false, "message": "Data tidak valid"})
 		return
 	}
 	if err := uc.usecase.RegisterUser(&user); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": "Register Gagal"})
+		c.JSON(http.StatusInternalServerError, gin.H{"Status": "Gagal", "Kondisi": false, "message": "Register Gagal"})
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{"Message": "Register Berhasil Lanjut Login"})
+	c.JSON(http.StatusCreated, gin.H{"Status": "Berhasil", "Kondisi": true, "Message": "Register Berhasil Lanjut Login"})
 }
 
 func (uc *UserController) LoginUser(c *gin.Context) {
@@ -38,21 +38,21 @@ func (uc *UserController) LoginUser(c *gin.Context) {
 	}
 
 	if err := c.ShouldBindBodyWithJSON(&credential); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid input"})
+		c.JSON(http.StatusBadRequest, gin.H{"Status": "Gagal", "Kondisi": false, "error": "invalid input"})
 		return
 	}
 
 	user, err := uc.usecase.Login(credential.Username, credential.Password)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials"})
+		c.JSON(http.StatusUnauthorized, gin.H{"Status": "Gagal", "Kondisi": false, "error": "invalid credentials"})
 		return
 	}
 
 	token, err := middleware.GenerateToken(user.Id)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "gagal menggunakan token"})
+		c.JSON(http.StatusInternalServerError, gin.H{"Status": "Gagal", "Kondisi": false, "error": "gagal menggunakan token"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"status": "True", "Message": "Berhasil", "token": token})
+	c.JSON(http.StatusOK, gin.H{"Status": "Berhasil", "Kondisi": true, "token": token})
 
 }

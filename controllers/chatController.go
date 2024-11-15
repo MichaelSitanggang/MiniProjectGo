@@ -26,11 +26,7 @@ func (cc *ChatCotnroller) ChatController(c *gin.Context) {
 	}
 	chat, err := cc.chatUseCase.ProsesChat(input.UserInput)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"Status":  "Gagal",
-			"Kondisi": false,
-			"Message": "Server eror",
-		})
+		c.JSON(http.StatusInternalServerError, gin.H{"Status": "Gagal", "Kondisi": false, "Message": "Server eror"})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"Status": "Berhasil", "Kondisi": true, "Message": chat})

@@ -11,11 +11,8 @@ type AktivitasRepo interface {
 	CreateAktivitas(aktivitas *entities.Input_aktivitas) error
 	UpdateAktivitas(aktivitas *entities.Input_aktivitas) error
 	DeleteAktivitas(id int, userID int) error
-<<<<<<< HEAD
 	CreateHistory(history *entities.History) error
 	GetAllHistoryByUserID(userID int) ([]entities.History, error)
-=======
->>>>>>> fiturAktivitas
 }
 
 type aktivitasRepo struct {
@@ -53,7 +50,6 @@ func (ar aktivitasRepo) DeleteAktivitas(id int, userID int) error {
 	var aktivitas entities.Input_aktivitas
 	return ar.db.Where("id = ? AND user_id = ?", id, userID).Delete(&aktivitas).Error
 }
-<<<<<<< HEAD
 
 func (ar aktivitasRepo) CreateHistory(history *entities.History) error {
 	return ar.db.Create(history).Error
@@ -67,5 +63,3 @@ func (ar aktivitasRepo) GetAllHistoryByUserID(userID int) ([]entities.History, e
 	}
 	return histories, nil
 }
-=======
->>>>>>> fiturAktivitas
