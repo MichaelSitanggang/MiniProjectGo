@@ -56,3 +56,5 @@ func (uc *UserController) LoginUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "True", "Message": "Berhasil", "token": token})
 
 }
+
+//lakukan perubahan
