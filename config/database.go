@@ -34,3 +34,5 @@ func CreateDatabase() *gorm.DB {
 	db.AutoMigrate(&entities.User{}, &entities.Aktivitas{}, &entities.Input_aktivitas{}, &entities.History{}, &entities.Chat{})
 	return db
 }
+
+//lakukan perubahan

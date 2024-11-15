@@ -4,8 +4,8 @@ import (
 	"github.com/MichaelSitanggang/MiniProjectGo/config"
 	"github.com/MichaelSitanggang/MiniProjectGo/controllers"
 	"github.com/MichaelSitanggang/MiniProjectGo/repositories"
-	"github.com/MichaelSitanggang/MiniProjectGo/routes"
 	"github.com/MichaelSitanggang/MiniProjectGo/services"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -22,10 +22,17 @@ func main() {
 	//
 	ChatController := controllers.NewControllerChat(ChatUseCase)
 	UserController := controllers.NewController(UserUseCase)
-	InputAktivitasController := controllers.NewInputController(InputAktivitasUseCase)
-	ControlAktivitas := controllers.NewControlAktipitas(AktipitasUseCase)
+	AktivitasController := controllers.NewInputController(AktivitasUseCase)
+	//
+	r := gin.Default()
+	r.POST("/register", UserController.RegisterUser)
+	r.POST("/login", UserController.LoginUser)
 
-	r := routes.SetupRouter(UserController, InputAktivitasController, ControlAktivitas, ChatController)
-
+	route := r.Group("/inputAktivitas")
+	route.Use(middleware.AuthMiddleware())
+	{
+		route.GET("", AktivitasController.GetInputAktivitasAll)
+		route.POST("inputAktivitas", AktivitasController.CreatedAktivitas)
+	}
 	r.Run(":8080")
 }
