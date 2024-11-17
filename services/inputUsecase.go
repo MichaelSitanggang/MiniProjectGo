@@ -15,26 +15,6 @@ type InputUseCase interface {
 	FindAllHistory(userID int) ([]entities.History, error)
 }
 
-// GetAll(page, limit int) ([]entities.Category, *entities.Pagination, error)
-
-// func (s *categoryService) GetAll(page, limit int) ([]entities.Category, *entities.Pagination, error) {
-//     var categories []entities.Category
-//     totalItems, err := s.categoryRepo.Count()
-//     if err != nil {
-//         return nil, nil, err
-//     }
-//     if err := s.categoryRepo.FindAll(&categories, page, limit); err != nil {
-//         return nil, nil, err
-//     }
-//     totalPages := int((totalItems + int64(limit) - 1) / int64(limit))
-//     pagination := &entities.Pagination{
-//         CurrentPage: page,
-//         TotalPages:  totalPages,
-//         TotalItems:  totalItems,
-//     }
-//     return categories, pagination, nil
-// }
-
 type inputUseCase struct {
 	repo repositories.AktivitasRepo
 }
