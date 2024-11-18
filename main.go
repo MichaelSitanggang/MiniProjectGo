@@ -27,5 +27,5 @@ func main() {
 
 	r := routes.SetupRouter(UserController, InputAktivitasController, ControlAktivitas, ChatController)
 
-	r.Run(":8080")
+	r.Run(":8000")
 }
