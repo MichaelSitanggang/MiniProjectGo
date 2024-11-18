@@ -30,7 +30,7 @@ jobs:
                 echo "${{ secrets.ENV }}" >> .env
             - name: Build Docker image
               run: |
-                docker build -t michaelsitanggang27/carbon:1.0.0 .
+                docker build -t michaelsitanggang27/carbons:1.0.0 .
             - name: Docker Hub login
               uses: docker/login-action@v1
               with: 
@@ -38,13 +38,13 @@ jobs:
                 password: ${{ secrets.DOCKER_TOKEN }}
             - name: Push Docker image
               run: |
-                docker push michaelsitanggang27/carbon:1.0.0
+                docker push michaelsitanggang27/carbons:1.0.0
 
     deploy:
       needs: build-and-push-docker
       runs-on: ubuntu-latest
       env:
-        IMAGE_URI: 'michaelsitanggang27/carbon:1.0.0'
+        IMAGE_URI: 'michaelsitanggang27/carbons:1.0.0'
         EC2_HOST: ${{ secrets.EC2_HOST }}
         EC2_USER: ${{ secrets.EC2_USER }}
 
