@@ -1,0 +1,367 @@
+{
+	"info": {
+		"_postman_id": "73b026c6-375f-45fa-8123-669767282e4c",
+		"name": "MINI_PROJEK",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31638904"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzIiwiZXhwIjoxNzMyMDI4OTU0fQ.PflLKJwg7DQtP1l2uDuwEtEZMYrD9N4ecPbvUM-2gxA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\" : \"mikael12345\",\n    \"password\" : \"abc\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://54.226.201.5:8000/register",
+					"protocol": "http",
+					"host": [
+						"54",
+						"226",
+						"201",
+						"5"
+					],
+					"port": "8000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\" : \"mikael12345\",\n    \"password\" : \"abc\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://54.226.201.5:8000/login",
+					"protocol": "http",
+					"host": [
+						"54",
+						"226",
+						"201",
+						"5"
+					],
+					"port": "8000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postaktivitas",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0IiwiZXhwIjoxNzMyMDI5MTc1fQ.iEPK9ENx1dYgYSzT92zkSDKPveO8SriPha2WtSuTHDc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data_aktivitas\" : 10.0,\n    \"konsumsi_energi_kwh\" : 10.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://54.226.201.5:8000/activity",
+					"protocol": "http",
+					"host": [
+						"54",
+						"226",
+						"201",
+						"5"
+					],
+					"port": "8000",
+					"path": [
+						"activity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetallAktivitas",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0IiwiZXhwIjoxNzMyMDI5MTc1fQ.iEPK9ENx1dYgYSzT92zkSDKPveO8SriPha2WtSuTHDc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://54.226.201.5:8000/activity",
+					"protocol": "http",
+					"host": [
+						"54",
+						"226",
+						"201",
+						"5"
+					],
+					"port": "8000",
+					"path": [
+						"activity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ubahaktivitas",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0IiwiZXhwIjoxNzMyMDI5MTc1fQ.iEPK9ENx1dYgYSzT92zkSDKPveO8SriPha2WtSuTHDc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data_aktivitas\" : 9.0,\n    \"konsumsi_energi_kwh\" : 2.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://54.226.201.5:8000/activity/2",
+					"protocol": "http",
+					"host": [
+						"54",
+						"226",
+						"201",
+						"5"
+					],
+					"port": "8000",
+					"path": [
+						"activity",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "menghapusaktivitas",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0IiwiZXhwIjoxNzMyMDI5MTc1fQ.iEPK9ENx1dYgYSzT92zkSDKPveO8SriPha2WtSuTHDc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://54.226.201.5:8000/activity/3",
+					"protocol": "http",
+					"host": [
+						"54",
+						"226",
+						"201",
+						"5"
+					],
+					"port": "8000",
+					"path": [
+						"activity",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cekhistoryaktivitas",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0IiwiZXhwIjoxNzMyMDI5MTc1fQ.iEPK9ENx1dYgYSzT92zkSDKPveO8SriPha2WtSuTHDc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://54.226.201.5:8000/history",
+					"protocol": "http",
+					"host": [
+						"54",
+						"226",
+						"201",
+						"5"
+					],
+					"port": "8000",
+					"path": [
+						"history"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cekaktivitasapasaja",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0IiwiZXhwIjoxNzMyMDI5MTc1fQ.iEPK9ENx1dYgYSzT92zkSDKPveO8SriPha2WtSuTHDc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://54.226.201.5:8000/typeactivity",
+					"protocol": "http",
+					"host": [
+						"54",
+						"226",
+						"201",
+						"5"
+					],
+					"port": "8000",
+					"path": [
+						"typeactivity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "chatAi",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0IiwiZXhwIjoxNzMyMDI5MTc1fQ.iEPK9ENx1dYgYSzT92zkSDKPveO8SriPha2WtSuTHDc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_input\" : \"apa itu karbon dan untuk apa ?\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://54.226.201.5:8000/chataja",
+					"protocol": "http",
+					"host": [
+						"54",
+						"226",
+						"201",
+						"5"
+					],
+					"port": "8000",
+					"path": [
+						"chataja"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "historypertanyaan",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0IiwiZXhwIjoxNzMyMDI5MTc1fQ.iEPK9ENx1dYgYSzT92zkSDKPveO8SriPha2WtSuTHDc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://54.226.201.5:8000/chataja",
+					"protocol": "http",
+					"host": [
+						"54",
+						"226",
+						"201",
+						"5"
+					],
+					"port": "8000",
+					"path": [
+						"chataja"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
