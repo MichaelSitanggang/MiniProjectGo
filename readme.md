@@ -15,6 +15,6 @@ apa dampak karbon bagi bumi, bagaimana menghitung karbon maka ai tersebut akan m
 1. Clone repository ini
 2. Buka terminal dan jalankan perintah `go mod tidy`
 3. Jalankan perintah `go run main.go`
-4. Buka browser dan akses ke `http://localhost:8000`
+4. Buka browser dan akses ke `http://localhost:8000` dengan route yang tesedia
 5. Daftar atau login untuk mengakses fitur aplikasi
 6. Setelah login, Anda dapat mengakses fitur penghitung karbon dan chat ai

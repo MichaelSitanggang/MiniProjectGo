@@ -6,7 +6,6 @@ import (
 
 	"github.com/MichaelSitanggang/MiniProjectGo/entities"
 	"github.com/MichaelSitanggang/MiniProjectGo/repositories/mocks"
-	"github.com/MichaelSitanggang/MiniProjectGo/services"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -23,7 +22,7 @@ func TestCreateAktip(t *testing.T) {
 	mockRepo.On("CreateAktivitas", inputAktivitas).Return(nil)
 	mockRepo.On("CreateHistory", mock.AnythingOfType("*entities.History")).Return(nil)
 
-	usecase := services.NewInputUsecase(mockRepo)
+	usecase := NewInputUsecase(mockRepo)
 	err := usecase.CreateAktip(userID, inputAktivitas)
 
 	assert.NoError(t, err)
@@ -37,7 +36,7 @@ func TestFindAllHistory(t *testing.T) {
 		{User_id: 1, AktivitasID: 1, TotalKarbon: 100, CreatedAt: time.Now().String()},
 	}, nil).Once()
 
-	usecase := services.NewInputUsecase(mockRepo)
+	usecase := NewInputUsecase(mockRepo)
 	history, err := usecase.FindAllHistory(1)
 	assert.NoError(t, err)
 	assert.NotEmpty(t, history)
@@ -48,7 +47,7 @@ func TestDeleteAktip(t *testing.T) {
 	mockRepo := new(mocks.AktivitasRepo)
 	mockRepo.On("DeleteAktivitas", 1, 1).Return(nil).Once()
 
-	usecase := services.NewInputUsecase(mockRepo)
+	usecase := NewInputUsecase(mockRepo)
 	err := usecase.DeleteAktip(1, 1)
 
 	assert.NoError(t, err)
@@ -64,7 +63,7 @@ func TestUpdateAktip(t *testing.T) {
 	mocrepo.On("UpdateAktivitas", mock.Anything).Return(nil).Once()
 	mocrepo.On("CreateHistory", mock.Anything).Return(nil).Once()
 
-	usecase := services.NewInputUsecase(mocrepo)
+	usecase := NewInputUsecase(mocrepo)
 	aktivitas := &entities.Input_aktivitas{
 		Data_Aktivitas:      10,
 		Konsumsi_energi_kwh: 20,
@@ -80,7 +79,7 @@ func TestGetAllAktivitas(t *testing.T) {
 	mockRepo.On("GetAktivitasAll", 1).Return([]entities.Input_aktivitas{
 		{User_id: 1, Data_Aktivitas: 10.0, Konsumsi_energi_kwh: 2.0, Total_jejak_karbon: 20},
 	}, nil).Once()
-	usecase := services.NewInputUsecase(mockRepo)
+	usecase := NewInputUsecase(mockRepo)
 	aktivitas, err := usecase.Findall(1)
 	assert.NoError(t, err)
 	assert.NotEmpty(t, aktivitas)
